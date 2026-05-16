@@ -3,12 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Authcontroller;
-use App\Models\Ticker;
+use App\Models\Ticket;
 
 Route::get("/", [Authcontroller::class, "login"]);
 
-Route::get("tickers", function(){
-    return Ticker::all();
+Route::get("tickets", function(){
+    return Ticket::all();
 });
 
 Route::get('/user', function (Request $request) {

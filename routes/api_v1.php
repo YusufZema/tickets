@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\TicketController;
 
 
-// api / v1 / tichets / create
+// api / v1 / tickets / create
 Route:: resource  ("tickets", TicketController::class);
 
 Route::get('/user', function (Request $request) {

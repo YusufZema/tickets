@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Ticker;
+use App\Models\Ticket;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
 
 /**
- * @extends Factory<Ticker>
+ * @extends Factory<Ticket>
  */
-class TickerFactory extends Factory
+class TicketFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -23,7 +23,7 @@ class TickerFactory extends Factory
             "user_id" => User::factory(),
             "title" => fake()->words(3, true),
             "description" => fake()->paragraph(),
-            "status" => fake()->randomElement( "A" , "C" , "H" , " X " ),
+            "status" => fake()->randomElement(["A", "C", "H", "X"]),
 
         ];
     }
