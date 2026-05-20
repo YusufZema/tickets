@@ -8,7 +8,8 @@ use App\Http\Requests\Api\V1\UpdateUserRequest;
 use App\Models\User;
 use App\Http\Resources\V1\UserResource;
 
-class UserController extends Controller
+
+class AuthorsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,15 @@ class UserController extends Controller
     public function index()
     {
         //
-        return UserResource::collection(User::paginate());
+        if (request('include') == 'tickets') {
+
+        return UserResource::collection(
+            User::with('tickets')->paginate()
+        );
+    }
+
+    return UserResource::collection(User::paginate());
+
     }
     /**
      * Store a newly created resource in storage.
@@ -29,16 +38,20 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show(User $author)
     {
         //
-        return new UserResource($user);
+        if(request('include') == 'tickets' )
+        {
+            return new UserResource($author->load("tickets"));
+        }
+        return new UserResource($author);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $author)
     {
         //
     }
@@ -46,7 +59,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(User $author)
     {
         //
     }
