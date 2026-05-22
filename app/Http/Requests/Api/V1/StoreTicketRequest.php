@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api\V1;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Override;
 
 class StoreTicketRequest extends FormRequest
 {
@@ -12,7 +13,7 @@ class StoreTicketRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +23,21 @@ class StoreTicketRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             //
+            "data.attributes.title" => "required|string|max:255",
+            "data.attributes.description" => "required|string",
+            "data.attributes.status" => "required|string|in:A , C , H , X , ",
         ];
+        if ($this->routeIs("tickets.show")) {
+            $rules[ "data.attributes.author.data.id "] = "required|integer";
+        }
+        return $rules;
     }
+    // public function messages()
+    // {
+    //     return [
+    //         "data.attributes.status" => "The data.attributes.status is in valid , plesse ues A , C , H  ,  or  X . ",
+    //     ];
+    // }
 }

@@ -2,15 +2,14 @@
 
 namespace App\Http\Filters\V1;
 
+use Symfony\Component\CssSelector\Node\FunctionNode;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use App\Http\Filters\V1\QueryFilter;
 
-class TicketFilter extends QueryFilter{
-    protected $sortable = [
-        "id",
-        "title",
-        "status",
+class AuthorFilter extends QueryFilter{
+     protected $sortable = [
+        "name",
+        "email",
         "createdAt" => "created_at",
         "updatedAt" => "updated_at",
         ];
@@ -29,15 +28,21 @@ class TicketFilter extends QueryFilter{
     }
 
 
-    public function status ($value)
+    public function id ($value)
         {
-            return  $this->builder->wherein("status", explode(",",$value));
+            return  $this->builder->wherein("id", explode(",",$value));
         }
 
-    public function title ($value)
+    public function email ($value)
         {
             $linkeStr = str_replace("*", "%", $value);
-            return  $this->builder->where("title", "like", $linkeStr);
+            return  $this->builder->where("email", "like", $linkeStr);
+
+        }
+    public function name ($value)
+        {
+            $linkeStr = str_replace("*", "%", $value);
+            return  $this->builder->where("name ", "like", $linkeStr);
 
         }
 
