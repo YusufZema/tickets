@@ -17,34 +17,34 @@ class TicketResource extends JsonResource
     public function toArray(Request $request): array
     {
         // return parent::toArray($request);
-        return[
+        return [
             'type' => 'ticket',
-            'id' => $this -> id,
+            'id' => $this->id,
             'attributes' => [
-                'title' => $this -> title,
-                'description' => $this ->when(
-                    $request -> routeIs('authors.show' ),
-                    $this ->description,
+                'title' => $this->title,
+                'description' => $this->when(
+                    $request->routeIs(['authors.tickets .show', 'tickets.index ']),
+                    $this->description,
                 ),
-                'status' => $this -> status,
-                'created_at' => $this -> created_at,
-                'updated_at' => $this -> updated_at
+                'status' => $this->status,
+                'created_at' => $this->created_at,
+                'updated_at' => $this->updated_at,
             ],
-            "relationships" => [
-                "author" => [
-                    "data" =>[
-                        "type" => "user",
-                        "id" => $this->user_id ,
+            'relationships' => [
+                'author' => [
+                    'data' => [
+                        'type' => 'user',
+                        'id' => $this->user_id,
                     ],
-                    "links" => [
-                        "self" => route('authors.show', ["author" => $this -> user_id])
-                    ]
-                ]
+                    'links' => [
+                        'self' => route('authors.show', ['author' => $this->user_id]),
+                    ],
+                ],
             ],
-            "includes" => new UserResource($this -> whenLoaded("author")),
+            'includes' => new UserResource($this->whenLoaded('author')),
             'links' => [
-                'self' => route('tickets.show', $this -> id)
-            ]
+                'self' => route('tickets.show', $this->id),
+            ],
         ];
     }
 }

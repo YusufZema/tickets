@@ -17,11 +17,18 @@ class DatabaseSeeder extends Seeder
     {
 
 
-          $user =  User::factory(10)->create();
+            $user =  User::factory(10)->create();
 
-           \App\Models\Ticket::factory(5)
-           ->recycle($user)
-           ->create();
+            \App\Models\Ticket::factory(5)
+            ->recycle($user)
+            ->create();
+
+            User:create([
+                "name" => "Manager User",
+                "email" => "manager@example.com",
+                "is_manager" => true,
+                "password" => bcrypt("password"),
+            ]);
 
         // User::factory()->create([
         //     'name' => 'Test User',
