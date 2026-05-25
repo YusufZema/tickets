@@ -10,6 +10,7 @@ use App\Http\Resources\V1\TicketResource;
 use App\Models\Ticket;
 use App\Traits\ApiResponses;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Controllers\Api\V1\ApiController;
 
 class AuthorTicketsController extends ApiController
 {
