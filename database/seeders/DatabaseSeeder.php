@@ -2,35 +2,32 @@
 
 namespace Database\Seeders;
 
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Ticket;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
+        $users = User::factory(10)->create();
 
-
-            $user =  User::factory(10)->create();
-
-            \App\Models\Ticket::factory(5)
-            ->recycle($user)
+        Ticket::factory(100)
+            ->recycle($users)
             ->create();
 
-            User:create([
-                "name" => "Manager User",
-                "email" => "manager@example.com",
-                "is_manager" => true,
-                "password" => bcrypt("password"),
-            ]);
+        User::create([
+            'email' => 'manager@manager.com',
+            'password' => bcrypt('password'),
+            'name' => 'The Manager',
+            'is_manager' => true,
+        ]);
 
-        // User::factory()->create([
+        // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
